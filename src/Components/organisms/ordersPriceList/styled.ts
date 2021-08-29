@@ -9,6 +9,7 @@ export const TableHeader = styled.div`
 
 export const TableRow = styled(TableHeader)`
   border: none;
+  position: relative;
 `
 
 export const FieldHeader = styled.div`
@@ -30,4 +31,15 @@ export const PricesContainer = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
+`
+
+export const ProgressBar = styled.div<any>`
+  background-color: ${props => props.theme.colors[props.color]};
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: ${props => props.left};
+  right: ${props => props.right};
+  height: 28px;
+  width: ${props => props.width};
 `

@@ -18,17 +18,17 @@ const Main = (): JSX.Element => {
     if (isConnected) sendMessage(buildToggleWSMessage(WSMessageEvents.subscribe, ProductIds.PI_XBTUSD))
   }, [isConnected])
 
-  const bidsToDisplay = orderBookMock.bids.slice(0, spread - 1)
-  const asksToDisplay = orderBookMock.asks.slice(0, spread - 1)
+  const bidsToDisplay = orderBookMock.bids.slice(0, spread)
+  const asksToDisplay = orderBookMock.asks.slice(0, spread)
 
-  let biggestNumber = orderBookMock.bids[0][0]
+  let biggestNumber = orderBookMock.bids[0][2]
 
   bidsToDisplay.forEach(delta => {
-    if (delta[0] > biggestNumber) biggestNumber = delta[0]
+    if (delta[2] > biggestNumber) biggestNumber = delta[2]
   })
 
   asksToDisplay.forEach(delta => {
-    if (delta[0] > biggestNumber) biggestNumber = delta[0]
+    if (delta[2] > biggestNumber) biggestNumber = delta[2]
   })
 
   return (
