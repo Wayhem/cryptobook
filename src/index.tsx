@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import App from 'Components/System/Main'
+import App from 'Components/system/App'
 
 ReactDOM.render(
   <>
