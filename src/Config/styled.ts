@@ -6,6 +6,11 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       bgGray: string
+      white: string
+      borderGray: string
+      green: string
+      red: string
+      textGray: string
     }
     font: string
   }
@@ -16,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: white;
     padding:0;
     margin:0;
-    font-family: 'Source Sans Pro';
+    font-family: 'Roboto';
     background-color: ${colors.bgGray};
   }
 
