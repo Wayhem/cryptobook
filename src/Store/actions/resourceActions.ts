@@ -9,7 +9,7 @@ export interface ResourcesAction {
   readonly payload: resourceEntity
 }
 
-export const fetchSuccessResource = (entity: Entities, data: resourceEntity): ResourcesAction => {
+export const getSuccessResource = (entity: Entities, data: resourceEntity): ResourcesAction => {
   return {
     type: ResourceTypes.RESOURCE_SUCCESS,
     entity,

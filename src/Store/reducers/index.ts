@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux'
+import { resourcesReducer } from 'Store/reducers/resources/resourceReducer'
 
-const reducers = {}
+const reducers = {
+  resources: resourcesReducer,
+}
 
 const rootReducer = combineReducers({
   ...reducers,
