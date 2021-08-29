@@ -3,8 +3,6 @@ import OrderBook, { orderBookBuilder } from 'Models/OrderBook'
 import { ResourcesAction } from 'Store/actions/resourceActions'
 import ResourceTypes from 'Store/types/resourceTypes'
 
-/* Standalone reducer for array of records, a "Resource" reducer can be made the same way in order to deal with entities individually */
-
 export enum ResourceStateFields {
   ORDER_BOOK = 'orderBook',
 }

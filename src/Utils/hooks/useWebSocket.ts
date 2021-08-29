@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import WSMessage from 'Models/WSMessage'
 import FeedTypes from 'Models/constants/feedTypes'
 import Entities from 'Models/Entities'
-import { getSuccessResource } from 'Store/actions/resourceActions'
+import { fetchedResource } from 'Store/actions/resourceActions'
 
 function useWebSocket(url: string) {
   const ws = useRef<null | WebSocket>(null)
@@ -25,7 +25,7 @@ function useWebSocket(url: string) {
 
     ws.current.onmessage = e => {
       const { feed, asks, bids } = JSON.parse(e.data)
-      if (feed === FeedTypes.Book_snapshot) dispatch(getSuccessResource(Entities.ORDER_BOOK, { asks, bids }))
+      if (feed === FeedTypes.Book_snapshot) dispatch(fetchedResource(Entities.ORDER_BOOK, { asks, bids }))
     }
   }, [])
 

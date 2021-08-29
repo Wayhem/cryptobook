@@ -1,3 +1,3 @@
-import OrderBook from 'Models/OrderBook'
+import OrderBook, { OrderBookWithoutTotals } from 'Models/OrderBook'
 
 export type resourceEntity = OrderBook

@@ -4,6 +4,8 @@ type FixedLengthArray<T extends any[]> = Pick<T, Exclude<keyof T, ArrayLengthMut
   [Symbol.iterator]: () => IterableIterator<ArrayItems<T>>
 }
 
-type Delta = FixedLengthArray<[number, number]>
+type Delta = FixedLengthArray<[number, number, number]>
+
+export type DeltaWithoutTotal = FixedLengthArray<[number, number]>
 
 export default Delta

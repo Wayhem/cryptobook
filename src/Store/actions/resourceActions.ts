@@ -3,13 +3,25 @@ import { initialState, stateMapping } from 'Store/reducers/resources/resourceRed
 import Entities from 'Models/Entities'
 import { resourceEntity } from 'Models/resourceEntities'
 
-export interface ResourcesAction {
+export interface StandardAction {
   readonly type: ResourceTypes
   readonly entity: Entities
+  readonly payload: any
+}
+
+export interface ResourcesAction extends StandardAction {
   readonly payload: resourceEntity
 }
 
-export const getSuccessResource = (entity: Entities, data: resourceEntity): ResourcesAction => {
+export const fetchedResource = (entity: Entities, data: resourceEntity): StandardAction => {
+  return {
+    type: ResourceTypes.FETCH_RESOURCE,
+    entity,
+    payload: data,
+  }
+}
+
+export const successResource = (entity: Entities, data: resourceEntity): ResourcesAction => {
   return {
     type: ResourceTypes.RESOURCE_SUCCESS,
     entity,

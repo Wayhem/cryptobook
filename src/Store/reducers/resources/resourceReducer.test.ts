@@ -1,5 +1,5 @@
 import { resourcesReducer, initialState, ResourceStateFields } from 'Store/reducers/resources/resourceReducer'
-import { ResourcesAction, getSuccessResource, resetResource } from 'Store/actions/resourceActions'
+import { ResourcesAction, successResource, resetResource } from 'Store/actions/resourceActions'
 import { orderBookMock } from 'Utils/mocks/orderBook'
 import Entities from 'Models/Entities'
 
@@ -9,7 +9,7 @@ describe('Testing resource reducer', () => {
   })
 
   test('should handle fetching resource data on success', () => {
-    expect(resourcesReducer(initialState, getSuccessResource(Entities.ORDER_BOOK, orderBookMock))).toEqual({
+    expect(resourcesReducer(initialState, successResource(Entities.ORDER_BOOK, orderBookMock))).toEqual({
       ...initialState,
       [ResourceStateFields.ORDER_BOOK]: orderBookMock,
     })
