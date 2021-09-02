@@ -14,8 +14,8 @@ import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { Container, Book, PricesContainer } from './styled'
 
 const Main = (): JSX.Element => {
-  const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.small)
-  const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
+  const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.large)
+  const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1', group)
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
   const debouncedWindowWidth = useDebouncedScreenWidth()
 
