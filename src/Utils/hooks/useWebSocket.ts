@@ -25,8 +25,10 @@ function useWebSocket(url: string) {
 
     ws.current.onmessage = e => {
       const { feed, asks, bids } = JSON.parse(e.data)
-      if (feed === FeedTypes.Book_snapshot) dispatch(fetchedResource(Entities.ORDER_BOOK, { asks, bids }))
-      else if (feed === FeedTypes.standard && asks && bids)
+      if (feed === FeedTypes.Book_snapshot) {
+        dispatch(fetchedResource(Entities.ORDER_BOOK, { asks, bids }))
+        dispatch(fetchedResource(Entities.DEBOUNCED_ORDER_BOOK, { asks, bids }))
+      } else if (feed === FeedTypes.standard && asks && bids)
         dispatch(updateOrderBook(Entities.ORDER_BOOK, { asks, bids }))
     }
   }, [])

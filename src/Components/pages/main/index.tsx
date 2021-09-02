@@ -8,6 +8,7 @@ import spread from 'Models/constants/spread'
 import WSMessageEvents from 'Models/constants/webSocketMessageEvents'
 import { debouncedOrderBookSelector } from 'Store/selectors/resourceSelectors'
 import useWebSocket from 'Utils/hooks/useWebSocket'
+import useDebouncedScreenWidth from 'Utils/hooks/useDebouncedScreenWidth'
 import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { Container, Book, PricesContainer } from './styled'
 
@@ -15,6 +16,7 @@ const Main = (): JSX.Element => {
   const [group, setGroup] = useState<number>(1)
   const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
+  const debouncedWindowWidth = useDebouncedScreenWidth()
 
   useEffect(() => {
     if (isConnected) sendMessage(buildToggleWSMessage(WSMessageEvents.subscribe, ProductIds.PI_XBTUSD))
@@ -38,8 +40,20 @@ const Main = (): JSX.Element => {
       <Book>
         <Header title='Order Book' group={group} />
         <PricesContainer>
-          <OrderPriceList elements={bidsToDisplay} alignment={Alignments.right} biggestNumber={biggestNumber} />
-          <OrderPriceList elements={asksToDisplay} alignment={Alignments.left} biggestNumber={biggestNumber} />
+          <OrderPriceList
+            elements={bidsToDisplay}
+            alignment={debouncedWindowWidth > 768 ? Alignments.right : Alignments.left}
+            biggestNumber={biggestNumber}
+            color='green'
+            colorBg='lightGreen'
+          />
+          <OrderPriceList
+            elements={asksToDisplay}
+            alignment={Alignments.left}
+            biggestNumber={biggestNumber}
+            color='red'
+            colorBg='lightRed'
+          />
         </PricesContainer>
       </Book>
     </Container>

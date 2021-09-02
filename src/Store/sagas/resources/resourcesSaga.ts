@@ -80,7 +80,7 @@ export function* updateOrderBook(action: StandardAction): Generator {
 }
 
 export function* updateDebouncedOrderBook(action: StandardAction): Generator {
-  yield delay(150)
+  yield delay(175)
 
   const { payload } = action
 

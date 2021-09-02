@@ -13,6 +13,9 @@ export const unformatInitialSnapshotOrderBook = (data: OrderBookWithoutTotals): 
 
 type unformatterFunctions = (...args: any[]) => resourceEntity
 
-const unformatters = new Map<Entities, unformatterFunctions>([[Entities.ORDER_BOOK, unformatInitialSnapshotOrderBook]])
+const unformatters = new Map<Entities, unformatterFunctions>([
+  [Entities.ORDER_BOOK, unformatInitialSnapshotOrderBook],
+  [Entities.DEBOUNCED_ORDER_BOOK, unformatInitialSnapshotOrderBook],
+])
 
 export { unformatters }

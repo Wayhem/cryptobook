@@ -7,17 +7,17 @@ interface PriceListProps {
   alignment: Alignments
   elements: Delta[]
   biggestNumber: number
+  color: string
+  colorBg: string
 }
 
 type DeltaRange = 0 | 1 | 2
 
-const PriceList = ({ alignment, elements, biggestNumber }: PriceListProps) => {
+const PriceList = ({ alignment, elements, biggestNumber, color, colorBg }: PriceListProps) => {
   let headerFields = HeaderFields
   let elementsToShow = elements
   let priceIndex: DeltaRange = 0
   let totalIndex: DeltaRange = 2
-  let color = 'red'
-  let colorBg = 'lightRed'
 
   if (alignment === Alignments.right) {
     headerFields = HeaderFields.slice(0).reverse()
@@ -27,8 +27,6 @@ const PriceList = ({ alignment, elements, biggestNumber }: PriceListProps) => {
     })
     priceIndex = 2
     totalIndex = 0
-    color = 'green'
-    colorBg = 'lightGreen'
   }
 
   return (
