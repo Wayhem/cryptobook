@@ -33,13 +33,16 @@ export const PricesContainer = styled.div`
   }
 `
 
-export const ProgressBar = styled.div<any>`
-  background-color: ${props => props.theme.colors[props.color]};
+export const ProgressBar = styled.div.attrs<any>(props => ({
+  style: {
+    backgroundColor: props.theme.colors[props.color],
+    left: props.left,
+    right: props.right,
+    width: props.width,
+  },
+}))<any>`
   z-index: -1;
   position: absolute;
   top: 0;
-  left: ${props => props.left};
-  right: ${props => props.right};
   height: 28px;
-  width: ${props => props.width};
 `

@@ -6,6 +6,7 @@ import ProductIds from 'Models/constants/productIds'
 import Alignments from 'Models/constants/priceAlignments'
 import spread from 'Models/constants/spread'
 import WSMessageEvents from 'Models/constants/webSocketMessageEvents'
+import { XBTUSD_GROUPS_ENUM } from 'Models/constants/groups'
 import { debouncedOrderBookSelector } from 'Store/selectors/resourceSelectors'
 import useWebSocket from 'Utils/hooks/useWebSocket'
 import useDebouncedScreenWidth from 'Utils/hooks/useDebouncedScreenWidth'
@@ -13,7 +14,7 @@ import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { Container, Book, PricesContainer } from './styled'
 
 const Main = (): JSX.Element => {
-  const [group, setGroup] = useState<number>(1)
+  const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.small)
   const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
   const debouncedWindowWidth = useDebouncedScreenWidth()
@@ -38,7 +39,7 @@ const Main = (): JSX.Element => {
   return (
     <Container>
       <Book>
-        <Header title='Order Book' group={group} />
+        <Header title='Order Book' group={group} setGroup={setGroup} />
         <PricesContainer>
           <OrderPriceList
             elements={bidsToDisplay}

@@ -17,3 +17,9 @@ export const Select = styled.select`
   color: ${props => props.theme.colors.white};
   padding: 4px 8px;
 `
+
+export const Label = styled.label`
+  color: ${props => props.theme.colors.white};
+  padding-right: 4px;
+  text-transform: capitalize;
+`
