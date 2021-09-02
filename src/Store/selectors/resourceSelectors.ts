@@ -11,3 +11,7 @@ function individualResourceSelector<T extends resourceEntity>(resourcePage: Reso
 }
 
 export const orderBookSelector = individualResourceSelector<OrderBook>(ResourceStateFields.ORDER_BOOK)
+
+export const debouncedOrderBookSelector = individualResourceSelector<OrderBook>(
+  ResourceStateFields.DEBOUNCED_ORDER_BOOK
+)

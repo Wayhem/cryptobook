@@ -2,6 +2,7 @@ import ResourceTypes from 'Store/types/resourceTypes'
 import { initialState, stateMapping } from 'Store/reducers/resources/resourceReducer'
 import Entities from 'Models/Entities'
 import { resourceEntity } from 'Models/resourceEntities'
+import { OrderBookWithoutTotals } from 'Models/OrderBook'
 
 export interface StandardAction {
   readonly type: ResourceTypes
@@ -34,5 +35,13 @@ export const resetResource = (entity: Entities): ResourcesAction => {
     type: ResourceTypes.RESET_RESOURCE,
     entity,
     payload: initialState[stateMapping[entity]],
+  }
+}
+
+export const updateOrderBook = (entity: Entities, data: Partial<OrderBookWithoutTotals>): StandardAction => {
+  return {
+    type: ResourceTypes.NEW_ORDER,
+    entity,
+    payload: data,
   }
 }

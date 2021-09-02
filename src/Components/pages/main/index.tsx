@@ -6,7 +6,7 @@ import ProductIds from 'Models/constants/productIds'
 import Alignments from 'Models/constants/priceAlignments'
 import spread from 'Models/constants/spread'
 import WSMessageEvents from 'Models/constants/webSocketMessageEvents'
-import { orderBookSelector } from 'Store/selectors/resourceSelectors'
+import { debouncedOrderBookSelector } from 'Store/selectors/resourceSelectors'
 import useWebSocket from 'Utils/hooks/useWebSocket'
 import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { Container, Book, PricesContainer } from './styled'
@@ -14,16 +14,16 @@ import { Container, Book, PricesContainer } from './styled'
 const Main = (): JSX.Element => {
   const [group, setGroup] = useState<number>(1)
   const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
-  const orderBook = useSelector(orderBookSelector)
+  const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
 
   useEffect(() => {
     if (isConnected) sendMessage(buildToggleWSMessage(WSMessageEvents.subscribe, ProductIds.PI_XBTUSD))
   }, [isConnected])
 
-  const bidsToDisplay = orderBook.bids.slice(0, spread)
-  const asksToDisplay = orderBook.asks.slice(0, spread)
+  const bidsToDisplay = debouncedOrderBook.bids.slice(0, spread)
+  const asksToDisplay = debouncedOrderBook.asks.slice(0, spread)
 
-  let biggestNumber = orderBook.bids[0][2]
+  let biggestNumber = 0
 
   bidsToDisplay.forEach(delta => {
     if (delta[2] > biggestNumber) biggestNumber = delta[2]

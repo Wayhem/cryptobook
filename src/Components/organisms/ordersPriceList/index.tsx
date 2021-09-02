@@ -40,7 +40,6 @@ const PriceList = ({ alignment, elements, biggestNumber }: PriceListProps) => {
       </TableHeader>
       {elementsToShow.map(delta => (
         <TableRow key={delta[priceIndex]}>
-          {console.log({ delta: delta[totalIndex], biggestNumber })}
           <ProgressBar
             width={`${(delta[totalIndex] / biggestNumber) * 100}%`}
             color={colorBg}
