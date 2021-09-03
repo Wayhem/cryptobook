@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Header from 'Components/molecules/header'
 import { Button } from 'Components/atoms/button'
 import OrderPriceList from 'Components/organisms/ordersPriceList'
@@ -12,14 +12,12 @@ import { debouncedOrderBookSelector } from 'Store/selectors/resourceSelectors'
 import useWebSocket from 'Utils/hooks/useWebSocket'
 import useDebouncedScreenWidth from 'Utils/hooks/useDebouncedScreenWidth'
 import { buildToggleWSMessage } from 'Utils/webSocketUtils'
-import { groupDeltasByNumber } from 'Utils/webSocketUtils'
+import { groupDeltasByNumber } from 'Utils/deltasUtils'
 import { Container, Book, PricesContainer, ButtonsContainer } from './styled'
-import ResourceTypes from 'Store/types/resourceTypes'
 
 const Main = (): JSX.Element => {
   const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM | ETHUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.small)
   const [productId, setProductId] = useState<ProductIds>(ProductIds.PI_XBTUSD)
-  const dispatch = useDispatch()
   const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
   const debouncedWindowWidth = useDebouncedScreenWidth()
@@ -40,11 +38,9 @@ const Main = (): JSX.Element => {
     if (productId === ProductIds.PI_XBTUSD) {
       setGroup(ETHUSD_GROUPS_ENUM.small)
       setProductId(ProductIds.PI_ETHUSD)
-      dispatch({ type: ResourceTypes.CANCEL_UPDATE })
     } else if (productId === ProductIds.PI_ETHUSD) {
       setGroup(XBTUSD_GROUPS_ENUM.small)
       setProductId(ProductIds.PI_XBTUSD)
-      dispatch({ type: ResourceTypes.CANCEL_UPDATE })
     }
   }
 
