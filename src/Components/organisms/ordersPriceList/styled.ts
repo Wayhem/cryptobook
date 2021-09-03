@@ -29,7 +29,7 @@ export const Field = styled.div<any>`
 export const PricesContainer = styled.div`
   width: 50%;
 
-  @media (max-width: ${Breakpoints.mobile}px) {
+  @media (max-width: ${Breakpoints.tablet}px) {
     width: 100%;
   }
 `

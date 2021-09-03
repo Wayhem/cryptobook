@@ -22,7 +22,7 @@ export const Book = styled.div`
 export const PricesContainer = styled.div`
   display: flex;
 
-  @media (max-width: ${Breakpoints.mobile}px) {
+  @media (max-width: ${Breakpoints.tablet}px) {
     flex-direction: column-reverse;
   }
 `
