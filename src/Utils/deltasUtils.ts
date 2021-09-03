@@ -29,11 +29,7 @@ const groupDeltasByNumber = (group: XBTUSD_GROUPS_ENUM | ETHUSD_GROUPS_ENUM, del
   return groupedDeltas
 }
 
-const getOrderBookWithUpdatedDeltas = (
-  newDeltas: DeltaWithoutTotal[],
-  currentOrderBook: OrdersBook,
-  isAsks: boolean
-): Delta[] => {
+const getUpdatedDeltas = (newDeltas: DeltaWithoutTotal[], currentOrderBook: OrdersBook, isAsks: boolean): Delta[] => {
   const currentDeltas = isAsks ? [...currentOrderBook.asks] : [...currentOrderBook.bids]
 
   newDeltas.forEach((newDelta: DeltaWithoutTotal) => {
@@ -71,4 +67,4 @@ const getOrderBookWithUpdatedDeltas = (
   return currentDeltas
 }
 
-export { groupDeltasByNumber, getOrderBookWithUpdatedDeltas }
+export { groupDeltasByNumber, getUpdatedDeltas }
