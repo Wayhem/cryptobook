@@ -15,10 +15,13 @@ import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { groupDeltasByNumber } from 'Utils/deltasUtils'
 import { Container, Book, PricesContainer, ButtonsContainer } from './styled'
 
+const BASE_URL = 'wss://www.cryptofacilities.com/ws/v1'
+
 const Main = (): JSX.Element => {
   const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM | ETHUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.small)
   const [productId, setProductId] = useState<ProductIds>(ProductIds.PI_XBTUSD)
-  const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
+  const [wsUrl, setWsUrl] = useState<string>(BASE_URL)
+  const { sendMessage, isConnected, closeWebsocket } = useWebSocket(wsUrl)
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
   const debouncedWindowWidth = useDebouncedScreenWidth()
 
@@ -60,6 +63,15 @@ const Main = (): JSX.Element => {
     if (delta[2] > biggestNumber) biggestNumber = delta[2]
   })
 
+  const closeConnection = () => {
+    closeWebsocket()
+    setWsUrl('')
+  }
+
+  const openConnection = () => {
+    setWsUrl(BASE_URL)
+  }
+
   return (
     <Container>
       <Book>
@@ -81,7 +93,12 @@ const Main = (): JSX.Element => {
           />
         </PricesContainer>
         <ButtonsContainer>
-          <Button onClick={toggleProductId}>Toggle feed</Button>
+          <Button onClick={toggleProductId} disabled={!isConnected}>
+            Toggle feed
+          </Button>
+          <Button bgColor={isConnected ? 'red' : 'green'} onClick={isConnected ? closeConnection : openConnection}>
+            {isConnected ? 'Kill feed' : 'Start feed'}
+          </Button>
         </ButtonsContainer>
       </Book>
     </Container>

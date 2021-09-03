@@ -12,17 +12,17 @@ function useWebSocket(url: string) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    if (!url) return
     ws.current = new WebSocket(url)
     ws.current.onopen = () => setIsConnected(true)
-    ws.current.onclose = () => setIsConnected(false)
 
     return () => {
       if (ws.current) ws.current.close()
     }
-  }, [])
+  }, [url])
 
   useEffect(() => {
-    if (!ws.current) return
+    if (!ws.current || !url) return
 
     ws.current.onmessage = e => {
       const { feed, asks, bids } = JSON.parse(e.data)
@@ -34,7 +34,17 @@ function useWebSocket(url: string) {
       } else if (feed === FeedTypes.standard && asks && bids)
         dispatch(updateOrderBook(Entities.ORDER_BOOK, { asks, bids }))
     }
-  }, [])
+
+    ws.current.onclose = () => {
+      setIsConnected(false)
+      ws.current = null
+      alert('reeeeeee')
+    }
+
+    ws.current.onerror = () => {
+      alert('reeeeeee')
+    }
+  }, [url])
 
   const sendMessage = (msg: WSMessage) => {
     if (ws.current?.readyState !== WebSocket.OPEN) return
@@ -42,7 +52,12 @@ function useWebSocket(url: string) {
     ws.current?.send(message)
   }
 
-  return { sendMessage, isConnected }
+  const closeWebsocket = () => {
+    if (ws.current?.readyState !== WebSocket.OPEN) return
+    return ws.current?.close()
+  }
+
+  return { sendMessage, isConnected, closeWebsocket }
 }
 
 export default useWebSocket
