@@ -7,4 +7,5 @@ export default {
   lightGreen: 'rgba(15, 140, 86, 0.2)',
   lightRed: 'rgba(195, 31, 39, 0.2)',
   textGray: '#444',
+  blue: '#331ed3',
 }

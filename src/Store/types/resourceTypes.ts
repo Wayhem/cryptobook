@@ -5,6 +5,7 @@ enum ResourceTypes {
   RESOURCE_UPDATE = 'RESOURCE_UPDATE',
   RESET_RESOURCE = 'RESET_RESOURCE',
   NEW_ORDER = 'NEW_ORDER',
+  CANCEL_UPDATE = 'CANCEL_UPDATE',
 }
 
 export default ResourceTypes

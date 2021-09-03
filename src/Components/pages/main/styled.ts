@@ -25,3 +25,9 @@ export const PricesContainer = styled.div`
     flex-direction: column-reverse;
   }
 `
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+`

@@ -2,7 +2,7 @@ import WSMessage from 'Models/WSMessage'
 import ProductIds from 'Models/constants/productIds'
 import WSMessageEvents from 'Models/constants/webSocketMessageEvents'
 import FeedTypes from 'Models/constants/feedTypes'
-import { XBTUSD_GROUPS_ENUM } from 'Models/constants/groups'
+import { XBTUSD_GROUPS_ENUM, ETHUSD_GROUPS_ENUM } from 'Models/constants/groups'
 import Delta from 'Models/Delta'
 
 const buildToggleWSMessage = (event: WSMessageEvents, productId: ProductIds): WSMessage => ({
@@ -19,7 +19,7 @@ function isMultiple(x: number, y: number) {
   return getClosestMultiple(x, y) === x
 }
 
-const groupDeltasByNumber = (group: XBTUSD_GROUPS_ENUM, deltas: Delta[]) => {
+const groupDeltasByNumber = (group: XBTUSD_GROUPS_ENUM | ETHUSD_GROUPS_ENUM, deltas: Delta[]) => {
   const groupedDeltas = [] as Delta[]
   if (Array.isArray(deltas) && deltas.length) {
     deltas.forEach(delta => {

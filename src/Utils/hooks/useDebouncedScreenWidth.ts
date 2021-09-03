@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import debounce from 'lodash.debounce'
 
-function useWindowWidth(delay = 700) {
+function useWindowWidth(delay = 500) {
   const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {

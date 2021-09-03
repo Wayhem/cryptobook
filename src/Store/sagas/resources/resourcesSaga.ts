@@ -1,4 +1,4 @@
-import { takeEvery, put, select, takeLatest, delay } from 'redux-saga/effects'
+import { takeEvery, put, select, takeLatest, delay, race, take, call } from 'redux-saga/effects'
 import { StandardAction } from 'Store/actions/resourceActions'
 import ResourcesTypes from 'Store/types/resourceTypes'
 import { orderBookSelector } from 'Store/selectors/resourceSelectors'
@@ -79,6 +79,13 @@ export function* updateOrderBook(action: StandardAction): Generator {
   })
 }
 
+export function* handleUpdateCancelDebouncedOrderBook(action: StandardAction): Generator {
+  yield race({
+    task: call(updateDebouncedOrderBook, action),
+    cancel: take(ResourcesTypes.CANCEL_UPDATE),
+  })
+}
+
 export function* updateDebouncedOrderBook(action: StandardAction): Generator {
   yield delay(175)
 
@@ -90,7 +97,7 @@ export function* updateDebouncedOrderBook(action: StandardAction): Generator {
 function* watchLists(): Generator {
   yield takeEvery(ResourcesTypes.FETCH_RESOURCE, fetchedResource)
   yield takeEvery(ResourcesTypes.NEW_ORDER, updateOrderBook)
-  yield takeLatest(ResourcesTypes.RESOURCE_UPDATE, updateDebouncedOrderBook)
+  yield takeLatest(ResourcesTypes.RESOURCE_UPDATE, handleUpdateCancelDebouncedOrderBook)
 }
 
 export default watchLists
