@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header page component Header renders and matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-bdfBQB dycULH"
+  >
+    <div
+      class="sc-gsTEea dRwGRi"
+    >
+      Hello
+    </div>
+    <div>
+      <label
+        class="sc-hKgJUU TebGZ"
+      >
+        group:
+      </label>
+      <select
+        class="sc-dlfnuX gNzwCX"
+      >
+        <option
+          value="0.5"
+        >
+          0.5
+        </option>
+        <option
+          value="1"
+        >
+          1
+        </option>
+        <option
+          value="2.5"
+        >
+          2.5
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+`;

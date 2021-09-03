@@ -5,6 +5,7 @@ import { orderBookSelector } from 'Store/selectors/resourceSelectors'
 import { unformatters as resourceUnformatters } from 'Utils/formatters/resourceUnformatters'
 import { getUpdatedDeltas } from 'Utils/deltasUtils'
 import Entities from 'Models/Entities'
+import Delta from 'Models/Delta'
 
 export function* fetchedResource(action: StandardAction): Generator {
   const entity = action.entity
@@ -24,8 +25,13 @@ export function* updateOrderBook(action: StandardAction): Generator {
 
   const { asks, bids } = action.payload
 
-  const newAsks = getUpdatedDeltas(asks, currentOrderBook, true)
-  const newBids = getUpdatedDeltas(bids, currentOrderBook, false)
+  let newAsks = [] as Delta[]
+  let newBids = [] as Delta[]
+
+  if (currentOrderBook) {
+    newAsks = getUpdatedDeltas(asks, currentOrderBook, true)
+    newBids = getUpdatedDeltas(bids, currentOrderBook, false)
+  }
 
   yield put({
     type: ResourcesTypes.RESOURCE_UPDATE,

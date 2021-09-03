@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderPrice page component OrderPrice renders and matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-eCstlR kjpSlN"
+  >
+    <div
+      class="sc-bdfBQB dPOicM"
+    >
+      <div
+        class="sc-dlfnuX iJDqXm"
+      >
+        price
+      </div>
+      <div
+        class="sc-dlfnuX iJDqXm"
+      >
+        size
+      </div>
+      <div
+        class="sc-dlfnuX iJDqXm"
+      >
+        total
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
 import WSMessage from 'Models/WSMessage'
 import FeedTypes from 'Models/constants/feedTypes'
 import Entities from 'Models/Entities'
@@ -38,11 +39,20 @@ function useWebSocket(url: string) {
     ws.current.onclose = () => {
       setIsConnected(false)
       ws.current = null
-      alert('reeeeeee')
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Connection unexpectly closed, press Start feed to connect again!',
+      })
     }
 
     ws.current.onerror = () => {
-      alert('reeeeeee')
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Connection unexpectly failed!',
+      })
+      closeWebsocket()
     }
   }, [url])
 
