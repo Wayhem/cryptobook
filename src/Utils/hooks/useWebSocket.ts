@@ -4,10 +4,8 @@ import WSMessage from 'Models/WSMessage'
 import FeedTypes from 'Models/constants/feedTypes'
 import Entities from 'Models/Entities'
 import { fetchedResource, updateOrderBook } from 'Store/actions/resourceActions'
-import { XBTUSD_GROUPS_ENUM } from 'Models/constants/groups'
-import { groupDeltasByNumber } from 'Utils/webSocketUtils'
 
-function useWebSocket(url: string, group: XBTUSD_GROUPS_ENUM) {
+function useWebSocket(url: string) {
   const ws = useRef<null | WebSocket>(null)
   const [isConnected, setIsConnected] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -27,14 +25,12 @@ function useWebSocket(url: string, group: XBTUSD_GROUPS_ENUM) {
 
     ws.current.onmessage = e => {
       const { feed, asks, bids } = JSON.parse(e.data)
-      const newAsks = groupDeltasByNumber(group, asks)
-      const newBids = groupDeltasByNumber(group, bids)
 
       if (feed === FeedTypes.Book_snapshot) {
-        dispatch(fetchedResource(Entities.ORDER_BOOK, { asks: newAsks, bids: newBids }))
-        dispatch(fetchedResource(Entities.DEBOUNCED_ORDER_BOOK, { asks: newAsks, bids: newBids }))
-      } else if (feed === FeedTypes.standard && newAsks && newBids)
-        dispatch(updateOrderBook(Entities.ORDER_BOOK, { asks: newAsks, bids: newBids }))
+        dispatch(fetchedResource(Entities.ORDER_BOOK, { asks, bids }))
+        dispatch(fetchedResource(Entities.DEBOUNCED_ORDER_BOOK, { asks, bids }))
+      } else if (feed === FeedTypes.standard && asks && bids)
+        dispatch(updateOrderBook(Entities.ORDER_BOOK, { asks, bids }))
     }
   }, [])
 

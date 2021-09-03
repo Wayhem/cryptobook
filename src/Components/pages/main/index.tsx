@@ -11,11 +11,12 @@ import { debouncedOrderBookSelector } from 'Store/selectors/resourceSelectors'
 import useWebSocket from 'Utils/hooks/useWebSocket'
 import useDebouncedScreenWidth from 'Utils/hooks/useDebouncedScreenWidth'
 import { buildToggleWSMessage } from 'Utils/webSocketUtils'
+import { groupDeltasByNumber } from 'Utils/webSocketUtils'
 import { Container, Book, PricesContainer } from './styled'
 
 const Main = (): JSX.Element => {
   const [group, setGroup] = useState<XBTUSD_GROUPS_ENUM>(XBTUSD_GROUPS_ENUM.large)
-  const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1', group)
+  const { sendMessage, isConnected } = useWebSocket('wss://www.cryptofacilities.com/ws/v1')
   const debouncedOrderBook = useSelector(debouncedOrderBookSelector)
   const debouncedWindowWidth = useDebouncedScreenWidth()
 
@@ -23,8 +24,11 @@ const Main = (): JSX.Element => {
     if (isConnected) sendMessage(buildToggleWSMessage(WSMessageEvents.subscribe, ProductIds.PI_XBTUSD))
   }, [isConnected])
 
-  const bidsToDisplay = debouncedOrderBook.bids.slice(0, spread)
-  const asksToDisplay = debouncedOrderBook.asks.slice(0, spread)
+  const newAsks = groupDeltasByNumber(group, debouncedOrderBook.bids)
+  const newBids = groupDeltasByNumber(group, debouncedOrderBook.asks)
+
+  const bidsToDisplay = newAsks.slice(0, spread)
+  const asksToDisplay = newBids.slice(0, spread)
 
   let biggestNumber = 0
 
