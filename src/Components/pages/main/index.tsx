@@ -14,6 +14,7 @@ import useDebouncedScreenWidth from 'Utils/hooks/useDebouncedScreenWidth'
 import { buildToggleWSMessage } from 'Utils/webSocketUtils'
 import { groupDeltasByNumber } from 'Utils/deltasUtils'
 import { Container, Book, PricesContainer, ButtonsContainer } from './styled'
+import { Breakpoints } from 'Models/constants/breakpoints'
 
 const BASE_URL = 'wss://www.cryptofacilities.com/ws/v1'
 
@@ -79,7 +80,7 @@ const Main = (): JSX.Element => {
         <PricesContainer>
           <OrderPriceList
             elements={bidsToDisplay}
-            alignment={debouncedWindowWidth > 768 ? Alignments.right : Alignments.left}
+            alignment={debouncedWindowWidth > Breakpoints.tablet ? Alignments.right : Alignments.left}
             biggestNumber={biggestNumber}
             color='green'
             colorBg='lightGreen'

@@ -1,14 +1,15 @@
+import { Breakpoints } from 'Models/constants/breakpoints'
 import styled from 'styled-components'
 
 export const Container = styled.div`
   padding: 4rem 8rem;
   width: 100%;
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${Breakpoints.tablet}px) {
     padding: 1.5rem 3rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Breakpoints.mobile}px) {
     padding: 1rem 2rem;
   }
 `
@@ -21,7 +22,7 @@ export const Book = styled.div`
 export const PricesContainer = styled.div`
   display: flex;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Breakpoints.mobile}px) {
     flex-direction: column-reverse;
   }
 `

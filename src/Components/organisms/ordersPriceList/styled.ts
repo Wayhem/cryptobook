@@ -1,3 +1,4 @@
+import { Breakpoints } from 'Models/constants/breakpoints'
 import styled from 'styled-components'
 
 export const TableHeader = styled.div`
@@ -28,7 +29,7 @@ export const Field = styled.div<any>`
 export const PricesContainer = styled.div`
   width: 50%;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Breakpoints.mobile}px) {
     width: 100%;
   }
 `
