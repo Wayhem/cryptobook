@@ -24,4 +24,6 @@ For this project I used a CSS and Component based architecture called [Atomic De
 
 ### To Do and Issues:
 
-- SoonTM
+- Add some UI interaction tests
+- Typing of styled components
+- Tests around websocket hook
